@@ -22,7 +22,7 @@
     #8.	Show all library members from the newest to the oldest. Those who became members on the same day will be sorted alphabetically (by surname and name) within that day.
         SELECT * FROM tmember ORDER BY dNewMember DESC, cSurname,cName;
 
-    #9.	Show the title of all books published by the publishing company with ID 32 along with their theme or themes.
+    #9.	Show the title of all books published  the publishing company with ID 32 along with their theme or themes.
         SELECT cTitle, cName FROM tbook, tbooktheme, ttheme WHERE nPublishingCompanyID = 32
         AND tbook.nBookID = tbooktheme.nBookID AND tbooktheme.nThemeID = ttheme.nThemeID;
 
@@ -43,26 +43,26 @@
         #13.9
         SELECT cTitle, cName FROM tbook
         INNER JOIN tbooktheme ON tbook.nBookID = tbooktheme.nBookID
-        INNER JOIN ttheme on tbooktheme.nThemeID = ttheme.nThemeID
+        INNER JOIN ttheme ON tbooktheme.nThemeID = ttheme.nThemeID
         WHERE nPublishingCompanyID = 32;
 
         #13.10
         SELECT cName, cSurname, COUNT(*) FROM tauthor
-        INNER JOIN tauthorship t on tauthor.nAuthorID = t.nAuthorID
-        INNER JOIN tbook t2 on t.nBookID = t2.nBookID
+        INNER JOIN tauthorship t ON tauthor.nAuthorID = t.nAuthorID
+        INNER JOIN tbook t2 ON t.nBookID = t2.nBookID
         WHERE cTitle IS NOT NULL GROUP BY cName, cSurname;
 
         #13.11
         SELECT cName, cSurname, MIN(nPublishingYear) AS MinimumYear FROM tauthor
-        INNER JOIN tauthorship t on tauthor.nAuthorID = t.nAuthorID
-        INNER JOIN tbook t2 on t.nBookID = t2.nBookID
-        WHERE cTitle IS NOT  NULL group by cName;
+        INNER JOIN tauthorship t ON tauthor.nAuthorID = t.nAuthorID
+        INNER JOIN tbook t2 ON t.nBookID = t2.nBookID
+        WHERE cTitle IS NOT  NULL GROUP BY cName;
 
         #13.12
         SELECT tloan.cSignature, dLoan, cTitle, cName, cSurname FROM tloan
-        INNER JOIN tbookcopy t on tloan.cSignature = t.cSignature
-        INNER JOIN tbook t2 on t.nBookID = t2.nBookID
-        INNER JOIN tmember t3 on tloan.cCPR = t3.cCPR;
+        INNER JOIN tbookcopy t ON tloan.cSignature = t.cSignature
+        INNER JOIN tbook t2 ON t.nBookID = t2.nBookID
+        INNER JOIN tmember t3 ON tloan.cCPR = t3.cCPR;
 
     #14. Show all theme names along with the titles of their associated books. All themes must appear (even if there are no books for some particular themes). Sort by theme name.
         SELECT cName, cTitle FROM ttheme
@@ -72,17 +72,17 @@
 
     #15. Show the name and surname of all members who joined the library in 2013 along with the title of the books they took on loan during that same year. All members must be shown, even if they did not take any book on loan during 2013. Sort by member surname and name.
         SELECT tmember.cName, tmember.cSurname, if(dLoan LIKE '2013%', tbook.cTitle, '') AS BookRentedIn2013  FROM tmember
-        LEFT JOIN tloan on tmember.cCPR = tloan.cCPR
-        LEFT JOIN tbookcopy on tloan.cSignature = tbookcopy.cSignature
-        LEFT JOIN tbook on tbookcopy.nBookID = tbook.nBookID
+        LEFT JOIN tloan ON tmember.cCPR = tloan.cCPR
+        LEFT JOIN tbookcopy ON tloan.cSignature = tbookcopy.cSignature
+        LEFT JOIN tbook ON tbookcopy.nBookID = tbook.nBookID
         WHERE tmember.dNewMember LIKE '2013%' GROUP BY cName,cSurname ORDER BY cName, cSurname;
 
     #16. Show the name and surname of all authors along with their nationality or nationalities and the titles of their books. Every author must be shown, even though s/he has no registered books. Sort by author name and surname.
         SELECT tauthor.cName, tauthor.cSurname,tcountry.cName, tbook.cTitle  FROM tauthor
-        LEFT JOIN tnationality on tauthor.nAuthorID = tnationality.nAuthorID
-        LEFT JOIN tcountry on tnationality.nCountryID = tcountry.nCountryID
-        LEFT JOIN tauthorship on tauthor.nAuthorID = tauthorship.nAuthorID
-        LEFT JOIN tbook on tauthorship.nBookID = tbook.nBookID
+        LEFT JOIN tnationality ON tauthor.nAuthorID = tnationality.nAuthorID
+        LEFT JOIN tcountry ON tnationality.nCountryID = tcountry.nCountryID
+        LEFT JOIN tauthorship ON tauthor.nAuthorID = tauthorship.nAuthorID
+        LEFT JOIN tbook ON tauthorship.nBookID = tbook.nBookID
         ORDER BY tauthor.cName, tauthor.cSurname;
 
     #17. Show the title of those books which have had different editions published in both 1970 and 1989.
@@ -104,7 +104,7 @@
 
     # 21.	Show the name and country of all publishing companies with the headings "Name" and "Country".
         SELECT tpublishingcompany.cName AS Name, tcountry.cName AS Country FROM tpublishingcompany
-        INNER JOIN tcountry on tpublishingcompany.nCountryID = tcountry.nCountryID;
+        INNER JOIN tcountry ON tpublishingcompany.nCountryID = tcountry.nCountryID;
 
     # 22.	Show the titles of the books published between 1926 and 1978 that were not published by the publishing company with ID 32.
         SELECT cTitle FROM tbook WHERE nPublishingYear >= 1926 AND nPublishingYear <=1978 AND NOT nPublishingCompanyID = 32;
@@ -117,20 +117,20 @@
 
     # 25.	Show the titles of books whose title starts by "The Tale" and that are not published by "Lynch Inc".
         SELECT cTitle FROM tbook
-        INNER JOIN tpublishingcompany on tbook.nPublishingCompanyID = tpublishingcompany.nPublishingCompanyID
+        INNER JOIN tpublishingcompany ON tbook.nPublishingCompanyID = tpublishingcompany.nPublishingCompanyID
         WHERE cTitle LIKE 'The Tale%' AND NOT cName = 'Lynch Inc';
 
     # 26.	Show the list of themes for which the publishing company "Lynch Inc" has published books, excluding repeated values.
         SELECT DISTINCT ttheme.cName FROM ttheme
-        INNER JOIN tbooktheme on ttheme.nThemeID = tbooktheme.nThemeID
-        INNER JOIN tbook on tbooktheme.nBookID = tbook.nBookID
-        INNER JOIN tpublishingcompany on tbook.nPublishingCompanyID = tpublishingcompany.nPublishingCompanyID
+        INNER JOIN tbooktheme ON ttheme.nThemeID = tbooktheme.nThemeID
+        INNER JOIN tbook ON tbooktheme.nBookID = tbook.nBookID
+        INNER JOIN tpublishingcompany ON tbook.nPublishingCompanyID = tpublishingcompany.nPublishingCompanyID
         WHERE tpublishingcompany.cName = 'Lynch Inc';
 
     # 27.	Show the titles of those books which have never been loaned.
         SELECT * FROM tbook
-        INNER JOIN tbookcopy on tbook.nBookID = tbookcopy.nBookID
-        INNER JOIN tloan on tbookcopy.cSignature = tloan.cSignature
+        INNER JOIN tbookcopy ON tbook.nBookID = tbookcopy.nBookID
+        INNER JOIN tloan ON tbookcopy.cSignature = tloan.cSignature
         WHERE tloan.dLoan IS NULL;
 
     # 28.	For each publishing company, show its number of existing books under the heading "No. of Books".
