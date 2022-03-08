@@ -18,7 +18,7 @@ SELECT Phone FROM employee WHERE EmployeeId IN
 
 #5.	Show the information, without repeated records, of all albums that feature songs of the “Bossa Nova” genre whose title starts by the word “Samba”.
 SELECT DISTINCT Title FROM album WHERE AlbumId IN
-(SELECT AlbumId FROM track WHERE GenreId = ( SELECT GenreId FROM genre WHERE Name = 'Bossa Nova') and Name LIKE 'Samba%');
+(SELECT AlbumId FROM track WHERE GenreId = ( SELECT GenreId FROM genre WHERE Name = 'Bossa Nova') AND Name LIKE 'Samba%');
 
 #6.	For each genre, show the average length of its songs in minutes (without indicating seconds). Use the headers “Genre” and “Minutes”, and include only genres that have any song longer than half an hour.
 SELECT  Genre.Name AS Genre, ROUND(AVG(Track.Milliseconds/60000)) AS Minutes FROM Genre
@@ -26,7 +26,7 @@ INNER JOIN Track ON Genre.GenreId = Track.GenreId
 WHERE Milliseconds > 1800000 GROUP BY Genre.GenreId;
 
 #7.	How many client companies have no state?
-SELECT (SELECT COUNT(*) FROM Customer WHERE Customer.State is NULL) as NullStates;
+SELECT (SELECT COUNT(*) FROM Customer WHERE Customer.State IS NULL) AS NullStates;
 
 #8.	For each employee with clients in the “USA”, “Canada” and “Mexico” show the number of clients from these countries s/he has given support, only when this number is higher than 6. Sort the query by number of clients. Regarding the employee, show his/her first name and surname separated by a space. Use “Employee” and “Clients” as headers.
 SELECT CONCAT(employee.FirstName, ' ', employee.LastName) AS Employee, COUNT(*) AS Clients FROM employee
