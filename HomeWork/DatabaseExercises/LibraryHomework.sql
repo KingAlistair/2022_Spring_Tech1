@@ -100,7 +100,9 @@
     # that constitute the nationality for at least three authors. Use subqueries.
         SELECT tbook.nPublishingYear, COUNT(cTitle) FROM tbook,
         (SELECT cName FROM tcountry LEFT JOIN tnationality ON tcountry.nCountryID = tnationality.nCountryID
-            GROUP BY cName HAVING COUNT(cName)>=3) name
+            GROUP BY cName HAVING COUNT(cName)>=3) name;
+            
+        #Got confused by this one couldn't finish it.
 
     # 21.	Show the name and country of all publishing companies with the headings "Name" and "Country".
         SELECT tpublishingcompany.cName AS Name, tcountry.cName AS Country FROM tpublishingcompany
