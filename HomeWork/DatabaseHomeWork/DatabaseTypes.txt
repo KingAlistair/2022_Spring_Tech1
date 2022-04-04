@@ -1,0 +1,42 @@
+Relational databases:
+
+1. Microsoft SQL Server, 
+2. Oracle Database, 
+3. MySQL, 
+4. IBM DB2.
+5. Amazon Relational Database Service (RDS)
+6. PostgreSQL.
+
+
+NoSql Databases:
+
+Column-Based : Big table, Cassandra, Hbase, Hypertable
+Graph-Based : Neo4j,InfoGrid, Infinite Graph, Flock DB,
+Document-Based : MongoDB, CouchDB, OrientDB, RavenDB,
+Key-value: Riak, Tokyo cabinet, Redis server
+
+
+Relational databases vs NoSQL databases
+
+Relational db: The data tables used in a relational database store information about related objects. 
+Each row holds a record with a unique identifier(key) and each column contains the attributes of the data. 
+Each record assigns a value to each feature, making relationships between data points easy to identify.
+
+Columnar: Column-oriented databases work on columns. Every column is treated separately. 
+Values of single column databases are stored contiguously.
+
+Document db: It stores and retrieves data as a key value pair but the value part is stored as a document. 
+The document is stored in JSON or XML formats. The value is understood by the DB and can be queried.
+
+Key-value: Data is stored in key/value pairs. It is designed in such a way to handle lots of data and heavy load.
+
+Graph-based: A graph type database stores entities as well the relations amongst those entities. 
+The entity is stored as a node with the relationship as edges. An edge gives a relationship between nodes. 
+Every node and edge has a unique identifier.
+
+
+In-memory databases vs. persistent
+
+The main difference between a persistent and an in-memory database is where the data is stored. 
+An in-memory database uses RAM as the storage. A persistent database uses some persistent storage media, 
+typically a spinning disk (hard disk drive or HDD) or a solid state disk (SSD). 
