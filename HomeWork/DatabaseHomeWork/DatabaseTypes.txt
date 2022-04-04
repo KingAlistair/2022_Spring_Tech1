@@ -1,4 +1,4 @@
-Relational databases:
+Relational Databases:
 
 1. Microsoft SQL Server, 
 2. Oracle Database, 
@@ -10,11 +10,16 @@ Relational databases:
 
 NoSql Databases:
 
-Column-Based : Big table, Cassandra, Hbase, Hypertable
-Graph-Based : Neo4j,InfoGrid, Infinite Graph, Flock DB,
-Document-Based : MongoDB, CouchDB, OrientDB, RavenDB,
-Key-value: Riak, Tokyo cabinet, Redis server
+-Column-Based : Big table, Cassandra, Hbase, Hypertable
+-Graph-Based : Neo4j,InfoGrid, Infinite Graph, Flock DB,
+-Document-Based : MongoDB, CouchDB, OrientDB, RavenDB,
+-Key-value: Riak, Tokyo cabinet, Redis server
 
+
+In-memory Databases:
+
+-Apache ignite
+-H2(DBMS)
 
 Relational databases vs NoSQL databases
 
